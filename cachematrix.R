@@ -1,32 +1,30 @@
 ## Lexical Scoping
 
 ## Makes special matrix
-
 makeCacheMatrix <- function(x = matrix()) {
-# var and functions
-        matrizinversa <- NULL
-        set <- function( y ){
-                x <<- y
-                matrizinversa <<- NULL
-                }
-                get <- function() ( x )
-        setInversa <- function( calculoinversa ) ( matrizinversa <<- calculoinversa )
-        getInversa <- function() ( matrizinversa )
-        list( set = set, get = get, setInversa = setInversa, getInversa = getInversa )
+   i <- NULL
+  set <- function(y) {
+          x <<- y
+          i <<- NULL
+  }
+  get <- function() x
+  setinverse <- function(inverse) i <<- inverse
+  getinverse <- function() i
+  list(set = set,
+       get = get,
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
-
 ## Computes the inverse of the special matrix
-
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-        solinversa <- x$getInversa()
-        if (!is.null(solinversa)) {
-                 message( "getting cached data" )
-                 return( solinversa )
-                 }
-        data <- x$get()
-        solinversa <- solve(data, ...)
-        x$setInversa(solinversa)
-        solinversa
+  i <- x$getinverse()
+  if (!is.null(i)) {
+          message("getting cached data")
+          return(i)
+  }
+  data <- x$get()
+  i <- solve(data, ...)
+  x$setinverse(i)
+  i
 }
